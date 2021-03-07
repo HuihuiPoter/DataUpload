@@ -19,7 +19,11 @@ const store = new Vuex.Store({
             state.list = payload.list
         },
         audioState(state, payload){
-            state.list.splice(payload.handleIndex, 1, {content: payload.content, audio_exist: true, photo_exist: true})
+            //state.list.splice(payload.handleIndex, 1, {content: payload.content, audio_exist: true, photo_exist: true})
+            Vue.set(state.list[payload.handleIndex], 'audio_exist', payload.audio_exist)
+        },
+        imgState(state, payload) {
+            Vue.set(state.list[payload.handleIndex], 'photo_exist', payload.image_exist)
         }
     }
 })

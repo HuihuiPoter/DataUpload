@@ -13,7 +13,8 @@ import {
   ColorPicker,
   Upload,
   Table,
-  TableColumn
+  TableColumn,
+  Loading 
 } from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 
@@ -31,6 +32,7 @@ Vue.use(Table)
 Vue.use(TableColumn)
 Vue.prototype.$notify = Notification
 Vue.prototype.$message = Message
+Vue.prototype.$loading = Loading.service
 
 new Vue({
   render: h => h(App),

@@ -37,7 +37,7 @@ export default {
   name: "FileUP",
   data() {
     return {
-      url: "https://www.worith.cn/api/sen_upload_csv",
+      url: "https://www.worith.cn/api/upload_excel_word",
       file: null
     };
   },
@@ -50,6 +50,7 @@ export default {
         })
     },
     on_change(file){
+      //console.log(file)
       this.file = file
     },
     submit() {  
@@ -57,21 +58,27 @@ export default {
         this.$message.error("文件类型错误")
         return
       }
+      const loading = this.$loading({
+          lock: true,
+          text: 'Loading',
+          spinner: 'el-icon-loading',
+          background: 'rgba(0, 0, 0, 0.7)'
+        })
       let formData = new FormData()
-      
       formData.append('word', this.file.raw)
-      
-      //console.log(formData)
       axios.post(this.url, formData).then((res) => {
-        console.log(res)
+        //console.log(res)
+        if (res.data.code == 200) {
         this.$store.commit('returnList', {
           list: res.data.data
         })
+        loading.close()
         this.$message({
           message: '上传成功',
           type: 'success'
         })
         this.$refs.upload.clearFiles()
+        }
       }).catch((err) => console.log(err))
     },
   },
